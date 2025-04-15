@@ -34,7 +34,9 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': path.resolve(process.cwd(), 'src'),
-      },
+				'@vue-office/pdf': '/node_modules/@vue-office/pdf/lib/v3/index.js',
+
+			},
     },
     plugins: setupPlugins(viteEnv),
     server: {
