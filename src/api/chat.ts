@@ -14,7 +14,7 @@ export class chatSetting{
     //this.gptConfig = gptConfigStore.myData;
     //this.init();
   }
- 
+
   public setUuid(uuid: number){
     this.uuid = uuid;
     return this
@@ -30,7 +30,7 @@ export class chatSetting{
      if(!obj) return [];
      return obj;
   }
-  public findIndex(){ 
+  public findIndex(){
     return  this.getObjs().findIndex(v=>v.uuid && v.uuid==this.uuid  )
   }
   public save( obj : Partial<gptConfigType>){
@@ -40,10 +40,10 @@ export class chatSetting{
     const index = this.findIndex();
     let arr = this.getObjs();
     if( index>-1  )arr[index]= sobj;
-    else arr.push( sobj ); 
+    else arr.push( sobj );
     ss.set(this.localKey, arr );
     return this ;
   }
 
-   
+
 }

@@ -14,8 +14,10 @@ import { getToken } from '@/store/modules/auth/helper'
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
     if(gptServerStore.myData.OPENAI_API_BASE_URL){
+
         return `${ gptServerStore.myData.OPENAI_API_BASE_URL}${url}`;
     }
+	console.log(url)
     return `/api${url}`;
 }
 export const gptGetUrl = getUrl
@@ -236,7 +238,7 @@ export const subModel= async (opt: subModelType)=>{
         frequency_penalty = gStore.frequency_penalty??frequency_penalty;
         max_tokens= gStore.max_tokens;
     }
-   
+
     let body ={
             max_tokens ,
             model ,
@@ -245,7 +247,10 @@ export const subModel= async (opt: subModelType)=>{
             presence_penalty ,frequency_penalty,
             "messages": opt.message
            ,stream:true
-           ,kid:gptConfigStore.myData.kid
+           ,kid:gptConfigStore.myData.kid,
+					enableKnowledgeGraph: opt.uuid ?
+				(new chatSetting(+opt.uuid).getGptConfig().enableKnowledgeGraph || false) :
+				(gptConfigStore.myData.enableKnowledgeGraph || false)
         }
 
         let headers=   {'Content-Type': 'application/json;charset=UTF-8',
@@ -257,7 +262,7 @@ export const subModel= async (opt: subModelType)=>{
             if(gptConfigStore.myData.kid){
                 url = "/knowledge/send"
             }
-        
+
          await fetchSSE( gptGetUrl(url),{
             method: 'POST',
             headers: headers,

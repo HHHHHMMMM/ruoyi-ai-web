@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {NSelect, NInput,NSlider, NButton, useMessage,NTag} from "naive-ui"
+import {NSelect, NInput,NSlider, NButton, useMessage,NTag,NSwitch} from "naive-ui"
 import { ref ,computed,watch, onMounted} from "vue";
 import {gptConfigStore, homeStore,useChatStore} from '@/store'
 import { mlog,chatSetting } from "@/api";
@@ -16,6 +16,9 @@ const uuid = chatStore.active;
 const chatSet = new chatSetting( uuid==null?1002:uuid);
 
 const nGptStore = ref(  chatSet.getGptConfig() );
+if (nGptStore.value.enableKnowledgeGraph === undefined) {
+	nGptStore.value.enableKnowledgeGraph = false;
+}
 const message = useMessage()
 onMounted(() => { fetchData(),fetchDataGetKnowledge() });
 
@@ -189,7 +192,13 @@ const reSet=()=>{
 			/>
 		</div>
 	</section>
-
+	<section class="mb-5 justify-between items-center">
+		<div style="margin-bottom: 8px;">{{ $t('mjchat.enableKnowledgeGraph') }}</div>
+		<div class="flex items-center justify-between">
+			<span class="text-[14px] text-gray-600 dark:text-gray-300">{{ $t('mjchat.enableKnowledgeGraphDesc') }}</span>
+			<n-switch v-model:value="nGptStore.enableKnowledgeGraph" />
+		</div>
+	</section>
 	<template v-if="st.openMore">
 		<section class=" flex justify-between items-center "  >
 			<div>{{ $t('mj.temperature') }}</div>
@@ -246,4 +255,5 @@ const reSet=()=>{
 		<NButton type="primary" @click="save">{{ $t('mj.setBtSaveSys') }}</NButton> -->
 		<NButton :bordered="false" @click="saveChat('no')">{{ $t('common.save') }}</NButton>
 	</section>
+
 </template>

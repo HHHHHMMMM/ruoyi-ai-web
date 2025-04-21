@@ -5,23 +5,23 @@ import { ss } from '@/utils/storage'
 export const homeStore = reactive({
     myData:{
         act:'',//动作
-        actData:{} //动作类别 
+        actData:{} //动作类别
         ,local:'' //当前所处的版本
         ,session:{} as any
         ,isLoader:false
-       
+
     }
-    
+
     ,setMyData( v:object){
-        this.myData={...this.myData,...v}; 
-        if( Object.keys(v).indexOf('act')>-1){ 
+        this.myData={...this.myData,...v};
+        if( Object.keys(v).indexOf('act')>-1){
             setTimeout(()=> {
                 this.myData.act=''
                 this.myData.actData=''
             }, 2000 );
         }
     }
- 
+
 })
 
 export interface gptConfigType{
@@ -40,6 +40,8 @@ export interface gptConfigType{
     frequency_penalty?:number
     presence_penalty?:number
     tts_voice?:string //TTS 人物
+		enableKnowledgeGraph?: boolean;
+
 }
 const getGptInt= ():gptConfigType =>{
     let v:gptConfigType=getDefault();
@@ -74,7 +76,7 @@ export const gptConfigStore= reactive({
     myData:getGptInt(),
     setMyData(v: Partial<gptConfigType>){
 
-         this.myData={...this.myData,...v}; 
+         this.myData={...this.myData,...v};
          //mlog('gptConfigStore', v )
          if(v.model && !v.gpts) this.myData.gpts=undefined;
 
@@ -120,7 +122,7 @@ const getServerInit= ():gptServerType =>{
 export const gptServerStore= reactive({
     myData:getServerInit(),
     setMyData(v: Partial<gptServerType>){
-         this.myData={...this.myData,...v}; 
+         this.myData={...this.myData,...v};
          localStorage.setItem('gptServerStore', JSON.stringify( this.myData));
     }
     ,setInit(){
@@ -132,7 +134,7 @@ export const gptServerStore= reactive({
 const gptsUlistInit= ():gptsType[]=>{
     const lk= ss.get('gpts-use-list');
     if( !lk) return [];
-    return lk as gptsType[]; 
+    return lk as gptsType[];
 }
 
 //使用gtps列表

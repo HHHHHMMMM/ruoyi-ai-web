@@ -286,6 +286,8 @@ export default {
   }
 
   ,mjchat:{
+		"enableKnowledgeGraph": "开启知识图谱",
+		"enableKnowledgeGraphDesc": "利用知识图谱增强AI回答质量",
     loading:'正在载入图片'
     ,openurl:'直接打开链接'
     ,failReason:'失败原因：'
