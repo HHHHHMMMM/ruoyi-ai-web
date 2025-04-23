@@ -108,11 +108,11 @@ const menuOptions = ref([
     key: 'accountSettings',
     icon: renderIcon(settings)
   },
-  {
-    label: '购买套餐',
-    key: 'buy',
-    icon: renderIcon(storefront)
-  },
+  // {
+  //   label: '购买套餐',
+  //   key: 'buy',
+  //   icon: renderIcon(storefront)
+  // },
   {
     label: '退出账号',
     key: 'logout',
@@ -194,11 +194,11 @@ const handleSelect = (key: string) => {
 
       </div>
 
-      
+
     </div>
-    
+
   </div>
   <Setting v-if="st.show" v-model:visible="st.show" />
   <PromptStore v-model:visible="show"></PromptStore>
-  
+
 </template>
