@@ -51,7 +51,7 @@
 				user-select: none;
 
 				&:hover {
-					color: #65a665;
+					color: #e6f4ff;
 				}
 			}
 		}
@@ -132,4 +132,38 @@ html.dark {
 			padding: 24px 16px 16px 16px;
 		}
 	}
+}
+/* 在样式文件末尾添加这些规则，确保优先级 */
+.message-request {
+	background-color: white !important;
+	color: black !important;
+}
+
+.message-request .markdown-body {
+	color: black !important;
+}
+
+/* 针对暗色模式 */
+html.dark .message-request {
+	background-color: white !important;
+	color: black !important;
+}
+
+html.dark .message-request .markdown-body {
+	color: black !important;
+}
+/* 确保消息中的所有文本都是黑色 */
+.message-request,
+.message-request .markdown-body,
+.message-request .markdown-body p,
+.message-request .markdown-body div {
+	color: black !important;
+}
+
+/* 针对暗色模式 */
+html.dark .message-request,
+html.dark .message-request .markdown-body,
+html.dark .message-request .markdown-body p,
+html.dark .message-request .markdown-body div {
+	color: black !important;
 }

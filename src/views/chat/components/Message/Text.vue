@@ -49,16 +49,16 @@ mdi.use(mila, { attrs: { target: '_blank', rel: 'noopener' } })
 mdi.use(mdKatex, { blockClass: 'katexmath-block rounded-md p-[10px]', errorColor: ' #cc0000' })
 
 const wrapClass = computed(() => {
-  return [
-    'text-wrap',
-    'min-w-[20px]',
-    'rounded-md',
-    isMobile.value ? 'p-2' : 'px-3 py-2',
-    props.inversion ? 'bg-[#d2f9d1]' : 'bg-[#f4f6f8]',
-    props.inversion ? 'dark:bg-[#a1dc95]' : 'dark:bg-[#1e1e20]',
-    props.inversion ? 'message-request' : 'message-reply',
-    { 'text-red-500': props.error },
-  ]
+	return [
+		'text-wrap',
+		'min-w-[20px]',
+		'rounded-md',
+		isMobile.value ? 'p-2' : 'px-3 py-2',
+		props.inversion ? 'bg-white !important' : 'bg-[#f4f6f8]',     // 用户消息改为白色
+		props.inversion ? 'dark:bg-white !important' : 'dark:bg-[#1e1e20]', // 暗色模式下也是白色
+		props.inversion ? 'message-request text-black' : 'message-reply', // 注意这里添加了text-black
+		{ 'text-red-500': props.error },
+	]
 })
 
 const text = computed(() => {
@@ -120,7 +120,7 @@ onUnmounted(() => {
       <div v-if="!inversion">
         <aiTextSetting v-if="!inversion && isApikeyError(text)"/>
         <aiSetAuth v-if="!inversion && isAuthSessionError(text)" />
-          
+
         <dallText :chat="chat" v-if="chat.model=='dall-e-3' || chat.model=='dall-e-2'" class="whitespace-pre-wrap" />
         <mjText v-if="chat.mjID" class="whitespace-pre-wrap" :chat="chat" :mdi="mdi"></mjText>
         <ttsText v-else-if="chat.model && isTTS(chat.model) && chat.text=='ok'" :chat="chat"/>
@@ -136,7 +136,7 @@ onUnmounted(() => {
       <whisperText v-if="chat.model && chat.model.indexOf('whisper')>-1 && chat.opt?.lkey " :isW="true"  :chat="chat" class="w-full" />
       <ttsText v-if="!inversion && chat.opt?.duration && chat.opt?.duration>0 && chat.opt?.lkey " :isW="true"  :chat="chat" class="w-full" />
 
-      
+
 
     </div>
   </div>

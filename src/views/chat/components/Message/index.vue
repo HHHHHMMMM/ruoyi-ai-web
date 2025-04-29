@@ -9,7 +9,7 @@ import { t } from '@/locales'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { copyToClip } from '@/utils/copy'
 import { homeStore } from '@/store'
-import { getSeed, mlog ,mjImgUrl} from '@/api' 
+import { getSeed, mlog ,mjImgUrl} from '@/api'
 
 interface Props {
   dateTime?: string
@@ -74,7 +74,7 @@ const options = computed(() => {
 
 function handleSelect(key: 'copyText' | 'delete' | 'toggleRenderType' |'tts') {
   switch (key) {
-    case 'tts': 
+    case 'tts':
       homeStore.setMyData({act:'gpt.ttsv2', actData:{ index:props.index , uuid:props.chat.uuid, text:props.text } });
       return;
     case 'copyText':
@@ -114,13 +114,13 @@ function handleRegenerate2() {
   mlog('重新发送！');
   homeStore.setMyData({act:'gpt.resubmit', actData:{ index:props.index , uuid:props.chat.uuid } });
 }
- 
+
 // 新增内容分割逻辑
 const splitContent = computed(() => {
   const content = props.text || ''
   const thinkStart = content.indexOf('<think>')
   const thinkEnd = content.indexOf('</think>')
-  
+
   return {
     hasThink: thinkStart > -1 && thinkEnd > -1,
     think: thinkEnd > -1 ? content.slice(thinkStart + 7, thinkEnd) : '',
@@ -149,7 +149,7 @@ const splitContent = computed(() => {
         <!-- <span>{{ chat.opt?.progress }}</span> -->
         <template  v-if="chat.opt?.status=='SUCCESS'">
           <SvgIcon icon="ri:restart-line" @click="sendReload"  class="cursor-pointer text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300 " ></SvgIcon>
-          
+
           <div @click="getSeed(chat, message )" class="cursor-pointer">
             <span v-if="chat.opt?.seed">Seed:{{ chat.opt?.seed }}</span>
             <span v-else>Seed</span>
@@ -157,9 +157,9 @@ const splitContent = computed(() => {
           <a :href=" mjImgUrl(chat.opt?.imageUrl)" class="hidden group-hover:block active  cursor-pointer underline " target="_blank">{{ $t('mj.ulink') }}</a>
         </template>
       </p>
-      
+
       <div  class="flex items-end gap-1 mt-2"
-        :class="[inversion ? 'flex-row-reverse' : 'flex-row']" > 
+        :class="[inversion ? 'flex-row-reverse' : 'flex-row']" >
 
 <div v-if="!inversion" class="message-container">
   <div v-if="splitContent.hasThink" class="think-section">
@@ -170,7 +170,7 @@ const splitContent = computed(() => {
   </div>
 </div>
 
-        <TextComponent 
+        <TextComponent
           v-else
           ref="textRef"
           :inversion="inversion"
@@ -200,7 +200,7 @@ const splitContent = computed(() => {
             :trigger="isMobile ? 'click' : 'hover'"
             :placement="!inversion ? 'right' : 'left'"
             :options="options"
-            @select="handleSelect" 
+            @select="handleSelect"
           >
             <button class="transition text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-200">
               <SvgIcon icon="ri:more-2-fill" />
@@ -252,7 +252,7 @@ const splitContent = computed(() => {
     border-radius: 6px;
     margin: 6px 0;
   }
-  
+
   .think-section,
   .response-section {
     padding: 8px;
@@ -261,9 +261,8 @@ const splitContent = computed(() => {
 }
 
 .message-container {
-  border: 1px solid #374151;
   border-radius: 8px;
-  background: #1F2937;
+  background: #e6f4ff;
   width: 100%;
   margin: 8px 0;
 }
@@ -279,7 +278,7 @@ const splitContent = computed(() => {
 
 .response-section {
   padding: 12px;
-  color: #E5E7EB;
+  color: #0f0f0f;
   line-height: 1.6;
 }
 
