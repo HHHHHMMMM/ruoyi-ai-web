@@ -57,7 +57,6 @@ const promptStore = usePromptStore()
 const { promptList: promptTemplate } = storeToRefs<any>(promptStore)
 
 const appStore = useAppStore()
-const isChat = computed(() => appStore.isChat)
 
 // 未知原因刷新页面，loading 状态不会重置，手动重置
 dataSources.value.forEach((item, index) => {
@@ -115,7 +114,7 @@ async function onConversation() {
 			dateTime: new Date().toLocaleString(),
 			text: '思考中',
 			loading: true,
-			inversion: false,
+			inversion: true,
 			error: false,
 			conversationOptions: null,
 			requestOptions: { prompt: message, options: { ...options } },
@@ -146,7 +145,7 @@ async function onConversation() {
 							{
 								dateTime: new Date().toLocaleString(),
 								text: lastText + (data.text ?? ''),
-								inversion: false,
+								inversion: true,
 								error: false,
 								loading: true,
 								conversationOptions: { conversationId: data.conversationId, parentMessageId: data.id },
@@ -209,7 +208,7 @@ async function onConversation() {
 			{
 				dateTime: new Date().toLocaleString(),
 				text: errorMessage,
-				inversion: false,
+				inversion: true,
 				error: true,
 				loading: false,
 				conversationOptions: null,
